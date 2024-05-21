@@ -1,0 +1,2 @@
+# rslicer
+Fast string slicer
