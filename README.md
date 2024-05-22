@@ -3,11 +3,12 @@ Fast and simple rune slicer. No memory allocations.
 Just tell borders for runes and get byte positions in a string.
 Support negative indexes.
 
-get module - `go get github.com/HoskeOwl/rslicer`
-
 Available two functions:
 * GetRuneRange - return byte position for
-* GetSlice - return string slice
+* GetSliceByRunes - return string slice
+
+## get module
+`go get github.com/HoskeOwl/rslicer`
 
 ## Examples
 Can be used with ascii
@@ -15,7 +16,11 @@ Can be used with ascii
 ```
 package main
 
-import "github.com/HoskeOwl/rslicer"
+import (
+	"fmt"
+
+	"github.com/HoskeOwl/rslicer"
+)
 
 func main() {
 	s := "Some sentence."
@@ -33,16 +38,20 @@ Can be used with unicode
 ```
 package main
 
-import "github.com/HoskeOwl/rslicer"
+import (
+	"fmt"
+
+	"github.com/HoskeOwl/rslicer"
+)
 
 func main() {
 	s := "Some 日本語 symbols."
 	begin, end, err := rslicer.GetRuneRange(s, 5, 8)
-    if err != nil{
-        fmt.Printf("Got some error: %v", err)
-        return
-    }
-    fmt.Printf("Result: '%v'", s[begin:end]) //Result: '日本語'
+	if err != nil {
+		fmt.Printf("Got some error: %v", err)
+		return
+	}
+	fmt.Printf("Result: '%v'", s[begin:end]) //Result: '日本語'
 }
 ```
 
@@ -51,16 +60,20 @@ And with negative indexes too.
 ```
 package main
 
-import "github.com/HoskeOwl/rslicer"
+import (
+	"fmt"
+
+	"github.com/HoskeOwl/rslicer"
+)
 
 func main() {
 	s := "Some 日本語 symbols."
 	begin, end, err := rslicer.GetRuneRange(s, 5, -9)
-    if err != nil{
-        fmt.Printf("Got some error: %v", err)
-        return
-    }
-    fmt.Printf("Result: '%v'", s[begin:end]) //Result: '日本語'
+	if err != nil {
+		fmt.Printf("Got some error: %v", err)
+		return
+	}
+	fmt.Printf("Result: '%v'", s[begin:end]) //Result: '日本語'
 }
 ```
 
@@ -69,16 +82,20 @@ Or directry get slice.
 ```
 package main
 
-import "github.com/HoskeOwl/rslicer"
+import (
+	"fmt"
+
+	"github.com/HoskeOwl/rslicer"
+)
 
 func main() {
 	s := "Some 日本語 symbols."
 	out, err := rslicer.GetRuneSlice(s, 5, -9)
-    if err != nil{
-        fmt.Printf("Got some error: %v", err)
-        return
-    }
-    fmt.Printf("Result: '%v'", out) //Result: '日本語'
+	if err != nil {
+		fmt.Printf("Got some error: %v", err)
+		return
+	}
+	fmt.Printf("Result: '%v'", out) //Result: '日本語'
 }
 ```
 

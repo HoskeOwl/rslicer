@@ -60,6 +60,6 @@ func BenchmarkNegativeLargeWithFunction(b *testing.B) {
 
 func BenchmarkNegativeLargeSliceWithFunction(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_, _ = GetRuneSlice(exampleLarge, largeNegBegin, largeNegEnd)
+		_, _ = GetSliceByRunes(exampleLarge, largeNegBegin, largeNegEnd)
 	}
 }

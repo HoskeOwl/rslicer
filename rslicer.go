@@ -52,7 +52,7 @@ func GetRuneRange(source string, begin, end int) (int, int, error) {
 	return getRange(source, begin, end)
 }
 
-func GetRuneSlice(source string, begin, end int) (string, error) {
+func GetSliceByRunes(source string, begin, end int) (string, error) {
 	b, e, err := getRange(source, begin, end)
 	if err != nil {
 		return "", err

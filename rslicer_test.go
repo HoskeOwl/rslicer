@@ -102,7 +102,7 @@ func TestSliceOk(T *testing.T) {
 	}
 
 	for _, tdata := range check {
-		got, err := GetRuneSlice(tdata.str, tdata.runeRange.begin, tdata.runeRange.end)
+		got, err := GetSliceByRunes(tdata.str, tdata.runeRange.begin, tdata.runeRange.end)
 		if err != nil {
 			T.Errorf("Got error: %v. %v", err, tdata)
 		}
@@ -185,7 +185,7 @@ func TestSliceErr(T *testing.T) {
 	}
 
 	for _, edata := range check {
-		_, err := GetRuneSlice(edata.str, edata.runeRange.begin, edata.runeRange.end)
+		_, err := GetSliceByRunes(edata.str, edata.runeRange.begin, edata.runeRange.end)
 		if err == nil {
 			T.Errorf("Didn't get error: %v. %v", err, edata)
 		}
