@@ -5,6 +5,16 @@ import (
 )
 
 func getRange(source string, begin, end int) (int, int, error) {
+	if begin == end || (begin >= 0 && end >= 0 && begin > end) {
+		return 0, 0, ErrOutOfRange
+	}
+
+	// If both negative the same sitution
+	// begin can't be bigger than end, like "abcdefg"[-1:-3]
+	if begin == end || (begin < 0 && end < 0 && begin > end) {
+		return 0, 0, ErrOutOfRange
+	}
+
 	cur, rbegin, rend := -1, -1, -1
 	rcnt := utf8.RuneCountInString(source)
 	if (begin < 0 && begin < -rcnt) || (begin > 0 && begin > rcnt) || (end > 0 && end > rcnt) || (end < 0 && end < -rcnt) {
@@ -30,26 +40,22 @@ func getRange(source string, begin, end int) (int, int, error) {
 	if rend == -1 {
 		rend = len(source)
 	}
+
+	if rbegin == -1 {
+		return 0, 0, ErrOutOfRange
+	}
+
 	return rbegin, rend, nil
 }
 
-func GetRuneRange(source string, begin, end int) (rbegin int, rend int, err error) {
-	if begin == end || (begin >= 0 && end >= 0 && begin > end) {
-		err = ErrOutOfRange
-		return
-	}
-	// If both negative the same sitution
-	// begin can't be bigger than end, like "abcdefg"[-1:-3]
-	if begin == end || (begin < 0 && end < 0 && begin > end) {
-		err = ErrOutOfRange
-		return
-	}
+func GetRuneRange(source string, begin, end int) (int, int, error) {
+	return getRange(source, begin, end)
+}
 
-	rbegin, rend, err = getRange(source, begin, end)
-	if rbegin == -1 || rend == -1 {
-		rbegin, rend, err = 0, 0, ErrOutOfRange
-		return
+func GetRuneSlice(source string, begin, end int) (string, error) {
+	b, e, err := getRange(source, begin, end)
+	if err != nil {
+		return "", err
 	}
-
-	return
+	return source[b:e], nil
 }
